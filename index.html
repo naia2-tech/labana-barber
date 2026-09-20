@@ -1424,6 +1424,7 @@ function route(){
   VIEWS.forEach(x => { const el = $('#view-' + x); if(el) el.hidden = x !== v; });
   $$('.viewnav a').forEach(a => a.classList.toggle('on', a.dataset.view === v));
   document.body.dataset.view = v;
+  try{ localStorage.setItem('labana-view', v); }catch(e){}   // la app instalada (sin #) vuelve a la última vista: móvil → web, iPad → panel
   if(v === 'cliente' && window.CL) CL.route(parts.slice(1));
   if(v === 'panel' && window.PN) PN.route(parts.slice(1));
   if(v === 'google' && window.GG) GG.route(parts.slice(1));
@@ -1448,6 +1449,7 @@ function boot(){
   const q = new URLSearchParams(location.search);
   if(q.get('lang')) S.lang = q.get('lang');
   save(false);
+  if(!location.hash){ try{ const v = localStorage.getItem('labana-view'); if(v && VIEWS.includes(v)) history.replaceState(null, '', '#' + v); }catch(e){} }
   window.addEventListener('hashchange', route);
   const bl = $('#btnLink'); if(bl) bl.addEventListener('click', copyLink);
   const br = $('#btnReset'); if(br) br.addEventListener('click', () => { if(confirm(lang() === 'eu' ? 'Demoaren hasierako datuetara itzuli?' : '¿Volver a los datos iniciales de la demo?')) reset(); });
