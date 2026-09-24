@@ -8,7 +8,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Labana">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -280,6 +280,13 @@ main{min-height:calc(100vh - var(--topbar))}
   .topbar-tools{margin-left:auto}
 }
 
+@media (max-width:640px){
+  :root{--topbar:calc(48px + env(safe-area-inset-top))}
+  .topbar{padding-top:env(safe-area-inset-top);height:calc(48px + env(safe-area-inset-top))}
+  .device{padding-top:0}
+  body[data-view="google"] .gg{padding-top:env(safe-area-inset-top)}
+}
+
 /* ===== Web del cliente (móvil, tema oscuro) ===== */
 .cl{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;background:var(--bg);color:var(--ink)}
 .cl-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;padding-bottom:96px}
@@ -520,6 +527,12 @@ main{min-height:calc(100vh - var(--topbar))}
 #clPush p{font-size:13px;color:var(--ink-2);line-height:1.4}
 #clPush small{margin-left:auto;font-size:11px;color:var(--mut);white-space:nowrap}
 @keyframes down{from{transform:translateY(-20px);opacity:0}to{transform:none;opacity:1}}
+
+/* móvil instalado en pantalla de inicio: no pisar la barra de estado (hora, batería) */
+@media (max-width:640px){
+  .cl-top{padding-top:env(safe-area-inset-top);height:calc(56px + env(safe-area-inset-top))}
+  #clPush{top:calc(8px + env(safe-area-inset-top))}
+}
 
 /* ===== Panel de la barbería (ordenador / iPad, tema claro con barra lateral oscura) ===== */
 .pn{display:grid;grid-template-columns:232px 1fr;background:var(--p-bg);color:var(--p-ink);min-height:calc(100vh - var(--topbar));position:relative}
